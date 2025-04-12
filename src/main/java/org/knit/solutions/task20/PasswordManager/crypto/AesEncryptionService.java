@@ -1,6 +1,8 @@
 package org.knit.solutions.task20.PasswordManager.crypto;
 
 import org.knit.solutions.task20.PasswordManager.security.MasterPasswordService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
@@ -14,6 +16,7 @@ import java.util.Base64;
 
 @Component
 public class AesEncryptionService implements EncryptionService {
+    private static final Logger logger = LoggerFactory.getLogger(AesEncryptionService.class);
     private static final String SECRET_ALGO = "AES/CBC/PKCS5Padding";
     private static final String SECRET_KEY_ALGO = "PBKDF2WithHmacSHA256";
     private static final byte[] IV = "1234567890abcdef".getBytes(); // 16-byte IV (пример)
@@ -32,7 +35,8 @@ public class AesEncryptionService implements EncryptionService {
             SecretKey tmp = factory.generateSecret(spec);
             return new SecretKeySpec(tmp.getEncoded(), "AES");
         } catch (Exception e) {
-            throw new RuntimeException("Ошибка генерации ключа", e);
+            logger.error("Ошибка шифрования", e);
+            throw new RuntimeException("Ошибка шифрования", e);
         }
     }
 
@@ -45,6 +49,7 @@ public class AesEncryptionService implements EncryptionService {
             byte[] encrypted = cipher.doFinal(input.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(encrypted);
         } catch (Exception e) {
+            logger.error("Ошибка шифрования", e);
             throw new RuntimeException("Ошибка шифрования", e);
         }
     }
@@ -59,6 +64,7 @@ public class AesEncryptionService implements EncryptionService {
             byte[] decrypted = cipher.doFinal(decoded);
             return new String(decrypted, StandardCharsets.UTF_8);
         } catch (Exception e) {
+            logger.error("Ошибка шифрования", e);
             throw new RuntimeException("Ошибка дешифровки", e);
         }
     }
