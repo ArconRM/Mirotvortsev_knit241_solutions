@@ -3,6 +3,8 @@ package org.knit.solutions.task20.PasswordManager.repository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.knit.solutions.task20.PasswordManager.model.PasswordEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.io.FileReader;
@@ -17,7 +19,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class JsonPasswordRepository implements PasswordRepository {
-    private static final String FILE_PATH = "src/main/java/org/knit/solutions/task20/PasswordManager/assets/passwords.json";
+    private static final Logger logger = LoggerFactory.getLogger(JsonPasswordRepository.class);
+    private static final String FILE_PATH = "src/main/resources/assets/passwords.json";
     private final Gson gson;
 
     public JsonPasswordRepository() {
@@ -35,7 +38,7 @@ public class JsonPasswordRepository implements PasswordRepository {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             gson.toJson(passwords, writer);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 
@@ -62,7 +65,7 @@ public class JsonPasswordRepository implements PasswordRepository {
             List<PasswordEntry> passwords = gson.fromJson(reader, type);
             return passwords != null ? passwords : new ArrayList<>();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
             return new ArrayList<>();
         }
     }

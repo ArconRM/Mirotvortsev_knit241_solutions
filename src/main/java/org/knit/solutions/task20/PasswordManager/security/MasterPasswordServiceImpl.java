@@ -4,10 +4,13 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import org.knit.solutions.task20.PasswordManager.repository.MasterPasswordRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MasterPasswordServiceImpl implements MasterPasswordService {
+    private static final Logger logger = LoggerFactory.getLogger(MasterPasswordServiceImpl.class);
     private final MasterPasswordRepository repository;
     private char[] masterPassword;
 
@@ -27,6 +30,7 @@ public class MasterPasswordServiceImpl implements MasterPasswordService {
         if (masterPassword != null) {
             return masterPassword;
         }
+        logger.error("Не задан мастер пароль");
         throw new IllegalStateException();
     }
 

@@ -2,6 +2,16 @@ package org.knit.solutions;
 
 import org.knit.TaskDescription;
 import org.knit.solutions.task20.PasswordManager.PasswordManagerApp;
+import org.knit.solutions.task20.PasswordManager.config.AppConfig;
+import org.knit.solutions.task20.PasswordManager.model.PasswordEntry;
+import org.knit.solutions.task20.PasswordManager.security.MasterPasswordService;
+import org.knit.solutions.task20.PasswordManager.service.PasswordService;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Scanner;
 
 /*
 ### Задача 20
