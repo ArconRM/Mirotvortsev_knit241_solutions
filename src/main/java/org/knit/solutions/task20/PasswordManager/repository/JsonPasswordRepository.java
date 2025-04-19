@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Repository
 public class JsonPasswordRepository implements PasswordRepository {
     private static final Logger logger = LoggerFactory.getLogger(JsonPasswordRepository.class);
-    private static final String FILE_PATH = "src/main/java/org/knit/solutions/task20/PasswordManager/assets/passwords.json";
+    private static final String FILE_PATH = "src/main/resources/assets/passwords.json";
     private final Gson gson;
 
     public JsonPasswordRepository() {

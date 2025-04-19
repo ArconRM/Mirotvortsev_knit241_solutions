@@ -15,7 +15,7 @@ import java.lang.reflect.Type;
 @Repository
 public class JsonMasterPasswordRepository implements MasterPasswordRepository {
     private static final Logger logger = LoggerFactory.getLogger(JsonMasterPasswordRepository.class);
-    private static final String FILE_PATH = "src/main/java/org/knit/solutions/task20/PasswordManager/assets/masterPassword.json";
+    private static final String FILE_PATH = "src/main/resources/assets/masterPassword.json";
     private final Gson gson;
 
     public JsonMasterPasswordRepository() {
